@@ -81,6 +81,7 @@ trait SupportsUptimeCheck
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
         $this->uptime_check_failed_event_fired_on_date = null;
+        $this->alerting_snoozed = false;
         $this->save();
 
         if ($wasFailing) {
@@ -116,6 +117,12 @@ trait SupportsUptimeCheck
 
     protected function shouldFireUptimeCheckFailedEvent(): bool
     {
+        $wasFailing = ! is_null($this->uptime_check_failed_event_fired_on_date);
+
+        if ($wasFailing && $this->alerting_snoozed === true) {
+            return false;
+        }
+
         if ($this->uptime_check_times_failed_in_a_row === config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures')) {
             return true;
         }

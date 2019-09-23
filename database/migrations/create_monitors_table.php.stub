@@ -38,6 +38,8 @@ class CreateMonitorsTable extends Migration
             $table->string('certificate_issuer')->nullable();
             $table->string('certificate_check_failure_reason')->default('');
 
+            $table->boolean('alerting_snoozed')->default(false);
+
             $table->timestamps();
         });
     }

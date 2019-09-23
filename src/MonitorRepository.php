@@ -29,6 +29,16 @@ class MonitorRepository
         return MonitorCollection::make($monitors)->sortByHost();
     }
 
+    public static function getSnoozed(): Collection
+    {
+        $modelClass = static::determineMonitorModel();
+
+        $monitors = $modelClass::where('alerting_snoozed', true)
+            ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
+    }
+
     public static function getForUptimeCheck(): MonitorCollection
     {
         $monitors = self::query()->get()->filter->shouldCheckUptime();

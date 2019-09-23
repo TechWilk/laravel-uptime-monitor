@@ -53,6 +53,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->app->bind('command.monitor:create', CreateMonitor::class);
         $this->app->bind('command.monitor:delete', DeleteMonitor::class);
         $this->app->bind('command.monitor:enable', EnableMonitor::class);
+        $this->app->bind('command.monitor:snooze', SnoozeMonitor::class);
         $this->app->bind('command.monitor:disable', DisableMonitor::class);
         $this->app->bind('command.monitor:list', ListMonitors::class);
 
@@ -68,6 +69,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             'command.monitor:create',
             'command.monitor:delete',
             'command.monitor:enable',
+            'command.monitor:snooze',
             'command.monitor:disable',
             'command.monitor:list',
         ]);

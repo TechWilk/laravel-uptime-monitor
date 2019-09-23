@@ -26,6 +26,7 @@ class ListMonitors extends BaseCommand
 
         Unchecked::display();
         Disabled::display();
+        Snoozed::display();
         UptimeCheckFailed::display();
         CertificateCheckFailed::display();
         Healthy::display();

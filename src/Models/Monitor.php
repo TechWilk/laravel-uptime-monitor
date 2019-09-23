@@ -102,6 +102,7 @@ class Monitor extends Model
     public function enable()
     {
         $this->uptime_check_enabled = true;
+        $this->alerting_snoozed = false;
 
         if ($this->url->getScheme() === 'https') {
             $this->certificate_check_enabled = true;
@@ -119,6 +120,19 @@ class Monitor extends Model
     {
         $this->uptime_check_enabled = false;
         $this->certificate_check_enabled = false;
+        $this->alerting_snoozed = false;
+
+        $this->save();
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function snooze()
+    {
+        $this->alerting_snoozed = true;
 
         $this->save();
 
